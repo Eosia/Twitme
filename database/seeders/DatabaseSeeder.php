@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\{
+    User, Post,
+};
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +21,21 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $countUsers = 10_000;
+        $countPosts = $countUsers * 10;
+
+        $users = User::factory($countUsers)->make();
+        $chunks = $users->chunk(100);
+        $chunks->each(function($chunk) {
+            User::insert($chunk->toArray());
+        });
+
+        $posts = Post::factory($countPosts)->make();
+        $chunks = $posts->chunk(10);
+        $chunks->each(function($chunk) {
+            Post::insert($chunk->toArray());
+        });
+
     }
 }
