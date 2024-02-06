@@ -22,17 +22,19 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $countUsers = 10_000;
+        ini_set('memory_limit', '-1');
+
+        $countUsers = 100;
         $countPosts = $countUsers * 10;
 
         $users = User::factory($countUsers)->make();
-        $chunks = $users->chunk(100);
+        $chunks = $users->chunk(10);
         $chunks->each(function($chunk) {
             User::insert($chunk->toArray());
         });
 
         $posts = Post::factory($countPosts)->make();
-        $chunks = $posts->chunk(10);
+        $chunks = $posts->chunk(100);
         $chunks->each(function($chunk) {
             Post::insert($chunk->toArray());
         });

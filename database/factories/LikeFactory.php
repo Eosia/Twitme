@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Like>
  */
-class PostFactory extends Factory
+class LikeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +18,8 @@ class PostFactory extends Factory
     {
         return [
             //
-            'user_id' => random_int(1,50),
-            'uuid' => Str::uuid(),
-            'content' => $this->faker->text(130),
+            'user_id' => random_int(1,30),
+            'post_id' => random_int(50,300),
         ];
     }
 }
