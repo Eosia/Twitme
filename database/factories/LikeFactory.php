@@ -18,8 +18,8 @@ class LikeFactory extends Factory
     {
         return [
             //
-            'user_id' => random_int(1,30),
-            'post_id' => random_int(50,300),
+            'user_id' => random_int(1, 200),
+            'post_id' => random_int(50, 300),
         ];
     }
 }

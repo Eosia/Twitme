@@ -5,7 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\{
-    User, Post,
+    User,
+    Post,
 };
 
 class DatabaseSeeder extends Seeder
@@ -22,22 +23,21 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        ini_set('memory_limit', '-1');
+        // ini_set('memory_limit', '-1');
 
-        $countUsers = 100;
-        $countPosts = $countUsers * 10;
+        $countUsers = 500;
+        $countPosts = $countUsers * 5;
 
         $users = User::factory($countUsers)->make();
-        $chunks = $users->chunk(10);
-        $chunks->each(function($chunk) {
+        $chunks = $users->chunk(100);
+        $chunks->each(function ($chunk) {
             User::insert($chunk->toArray());
         });
 
         $posts = Post::factory($countPosts)->make();
-        $chunks = $posts->chunk(100);
-        $chunks->each(function($chunk) {
+        $chunks = $posts->chunk(500);
+        $chunks->each(function ($chunk) {
             Post::insert($chunk->toArray());
         });
-
     }
 }

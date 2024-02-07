@@ -19,9 +19,9 @@ class PostFactory extends Factory
     {
         return [
             //
-            'user_id' => random_int(1,50),
+            'user_id' => random_int(1, 200),
             'uuid' => Str::uuid(),
-            'content' => $this->faker->text(130),
+            'content' => $this->faker->text(180),
         ];
     }
 }

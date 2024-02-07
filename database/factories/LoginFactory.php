@@ -19,7 +19,7 @@ class LoginFactory extends Factory
     {
         return [
             //
-            'user_id' => random_int(1,10),
+            'user_id' => random_int(1, 200),
             'ip_address' => $this->faker->ipv4(),
         ];
     }

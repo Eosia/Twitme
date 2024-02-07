@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\{
+  User,
+};
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +17,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
 Route::get('/', function () {
-    return view('welcome');
+    $user1 = User::find(1);
+    $user2 = User::find(2);
+
+    $user1->toggleFollow($user2->id);
+
+    dd($user1->isFollower($user2->id), $user2->isFollowing($user1->id));
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
