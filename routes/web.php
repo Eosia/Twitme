@@ -17,19 +17,17 @@ use App\Models\{
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
 Route::get('/', function () {
-    $user1 = User::find(1);
-    $user2 = User::find(2);
-
-    $user1->toggleFollow($user2->id);
-
-    dd($user1->isFollower($user2->id), $user2->isFollowing($user1->id));
-
+    return view('welcome');
 });
+
+//Route::get('/', function () {
+//    $user1 = User::find(1);
+//    $user2 = User::find(2);
+//    $user1->toggleFollow($user2->id);
+//    dd($user1->isFollower($user2->id), $user2->isFollowing($user1->id));
+//});
 
 
 
