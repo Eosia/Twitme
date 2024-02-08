@@ -18,6 +18,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        Illuminate\Auth\Events\Login::class => [
+            App\Listeners\LoginSuccess::class,
+        ],
+
     ];
 
     /**
@@ -33,6 +38,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function shouldDiscoverEvents(): bool
     {
-        return false;
+        return true;
     }
 }
