@@ -19,10 +19,22 @@
 
 <body>
 <div id="app">
-
     @yield('content')
-
 </div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (e) => {
+        [...document.querySelectorAll('.form-delete')].forEach( (form) => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if(! confirm('Confirmez la suppression?')){
+                    return false;
+                }
+                form.submit();
+            })
+        })
+    })
+</script>
 
 {{--<!-- General JS Scripts -->--}}
 {{--<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>--}}
