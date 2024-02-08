@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Avatar extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['thumb_path', 'thumb_url'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

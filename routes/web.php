@@ -49,6 +49,9 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('destroy', [UserController::class, 'destroy'])->name('user.destroy');
 
     Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
+
+    Route::delete('destroy', [UserController::class, 'destroy'])->name('user.destroy');
+
 });
 
 

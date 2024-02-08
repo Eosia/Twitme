@@ -24,4 +24,19 @@ class UserController extends Controller
         return view('user.password')->with('title', 'Changer le mot de passe');
     }
 
+    public function destroy()
+    {
+        DB::transaction(function() {
+            $user = Auth::user();
+            $user->delete();
+            Storage::deleteDirectory('avatars/'.$user->id);
+        });
+
+        $success = 'Compte supprimé.';
+        return redirect('register')->withSuccess($success);
+
+
+    }
+
+
 }

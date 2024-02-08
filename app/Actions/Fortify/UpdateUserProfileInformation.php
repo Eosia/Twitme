@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Image, Storage, Str;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
@@ -29,8 +30,45 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             ],
         ])->validateWithBag('updateProfileInformation');
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        // Traitement de l'avatar
+        if (request()->hasFile('avatar')) {
+            if (!request()->file('avatar')->isValid()) {
+                // Utilisation d'une exception pour gérer l'erreur
+                throw new \Exception('Photo invalide.');
+            }
+
+            $directory = 'avatars/' . $user->id;
+
+            if ($user->avatar) {
+                $user->avatar->delete();
+                Storage::deleteDirectory($directory);
+            }
+
+            $path = request()->file('avatar')->store($directory);
+            $url = Storage::url($path);
+            $avatar = $user->avatar()->create([
+                'path' => $path,
+                'url' => $url,
+            ]);
+
+            $ext = request()->file('avatar')->extension();
+            $thumbnailImage = Image::make(Storage::get($path))
+                ->fit(150, 150, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->encode($ext, 50);
+
+            $filename = Str::uuid() . '.' . $ext;
+            $thumbnailPath = $directory . '/thumbnails/' . $filename;
+            Storage::put($thumbnailPath, $thumbnailImage);
+
+            $avatar->thumb_path = $thumbnailPath;
+            $avatar->thumb_url = Storage::url($thumbnailPath);
+            $avatar->save();
+        }
+
+        if ($input['email'] !== $user->email && $user instanceof MustVerifyEmail) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
@@ -51,6 +89,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->forceFill([
             'name' => $input['name'],
             'email' => $input['email'],
+            // Réinitialisation de la date de vérification de l'email
             'email_verified_at' => null,
         ])->save();
 

@@ -61,20 +61,20 @@
                             </div>
 
 
-{{--                            <div class="form-group">--}}
-{{--                                <label for="avatar">Avatar</label>--}}
-{{--                                <input type="file" class="form-control" name="avatar">--}}
+                            <div class="form-group">
+                                <label for="avatar">Avatar</label>
+                                <input type="file" class="form-control" name="avatar">
 
-{{--                                <div class="text-danger">{{ $errors->updateProfileInformation->first('avatar') }}</div>--}}
-{{--                            </div>--}}
+                                <div class="text-danger">{{ $errors->updateProfileInformation->first('avatar') }}</div>
+                            </div>
 
-{{--                            @if($user->avatar)--}}
-{{--                                <div class="mb-4">--}}
-{{--                                    <a href="{{ $user->avatar->url }}">--}}
-{{--                                        <img src="{{ $user->avatar->thumb_url }}" width="150" height="150" alt="">--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-{{--                            @endif--}}
+                            @if($user->avatar)
+                                <div class="mb-4">
+                                    <a href="{{ $user->avatar->url }}">
+                                        <img src="{{ $user->avatar->thumb_url }}" width="150" height="150" alt="">
+                                    </a>
+                                </div>
+                            @endif
 
 
                             <div class="form-group">
