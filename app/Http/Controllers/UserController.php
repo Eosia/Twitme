@@ -12,11 +12,14 @@ class UserController extends Controller
         $this->middleware('verified');
     }
 
-    public function profile() {
+    public function profile(?string $locale = null) {
 
         //App::setLocale('en');
         //dd(App::currentLocale());
 
+         if($locale && in_array($locale, ['fr', 'en'])){
+             App::setLocale($locale);
+         }
 
 
         $data = [
