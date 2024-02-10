@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth, DB, Storage;
+use Auth, DB, Storage, App;
 
 class UserController extends Controller
 {
@@ -13,6 +13,12 @@ class UserController extends Controller
     }
 
     public function profile() {
+
+        //App::setLocale('en');
+        //dd(App::currentLocale());
+
+
+
         $data = [
             'title' => "Mon profil",
             'user' => Auth::user(),

@@ -11,16 +11,13 @@
 
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h4>Vosu êtes connecté en tant que :
-                            <br>
-                            {{ auth()->user()->name }}
+                        <h4>
+                            {{ __('profile.profile_title', ['name' => auth()->user()->name]) }}
                         </h4>
                     </div>
 
                     <p class="m-4">
-                        Compté créé le
-                        {{ $user->created_at->isoFormat('DD-MM-YYYY') }}
-                        à {{ $user->created_at->format('H \H i') }}
+                        {{ __('profile.registred') }} {{ $user->created_at->isoFormat('LLLL') }}.
                     </p>
 
                     @if(session('status') && session('status') == 'profile-information-updated')
@@ -79,7 +76,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                    Mettre à jour
+                                    {!! __('button.update') !!}
                                 </button>
                             </div>
 
@@ -103,8 +100,7 @@
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-danger btn-lg btn-block">
-                                Supprimer mon compte
-                                {{-- <?php echo __('button.delete');?> --}}
+                                {!! __('button.delete') !!}
 
                             </button>
                         </div>
